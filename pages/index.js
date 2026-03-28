@@ -32,10 +32,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (bgAudio.current) {
-      bgAudio.current.volume = 0.5;
-      bgAudio.current.play().catch(() => {});
-    }
+    const play = () => {
+      if (bgAudio.current) {
+        bgAudio.current.volume = 0.5;
+        bgAudio.current.play().catch(() => {});
+      }
+      window.removeEventListener("click", play);
+    };
+    window.addEventListener("click", play);
   }, []);
 
   const handleClick = () => {
